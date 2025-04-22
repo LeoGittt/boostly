@@ -18,10 +18,10 @@ const NAV_LINKS = [
 ]
 
 const SERVICES_LINKS = [
-  { name: "Marketing Digital", href: "/servicios/marketing-digital" },
-  { name: "Desarrollo Web", href: "/servicios/desarrollo-web" },
-  { name: "Branding & Diseño", href: "/servicios/branding" },
-  { name: "Ver todos", href: "/servicios" },
+  { name: "Marketing Digital", href: "#" },
+  { name: "Desarrollo Web", href: "#" },
+  { name: "Branding & Diseño", href: "#" },
+  { name: "Ver todos", href: "#" },
 ]
 
 export default function Navbar() {

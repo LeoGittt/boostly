@@ -13,10 +13,9 @@ import Footer from "@/components/footer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Boostly | Agencia Creativa de Marketing Digital",
+  title: "Boostly",
   description:
-    "Impulsamos tu marca, transformamos tu presencia digital con estrategias creativas y resultados medibles.",
-    generator: 'v0.dev'
+    "Impulsamos tu marca, transformamos tu presencia digital con estrategias creativas y resultados medibles."
 }
 
 export default function RootLayout({
