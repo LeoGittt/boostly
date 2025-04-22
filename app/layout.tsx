@@ -30,9 +30,13 @@ export default function RootLayout({
           <div className="w-full">
             <Navbar/>
             <ScrollProgress />
-            <Suspense>{children}</Suspense>
+            <Suspense fallback={<div>Cargando análisis...</div>}>
+              <Analytics />
+            </Suspense>
+            <Suspense fallback={<div>Cargando contenido...</div>}>
+              {children}
+            </Suspense>
             <CookieConsent />
-            <Analytics />
             <Footer/>
           </div>
         </ThemeProvider>

@@ -16,7 +16,7 @@ export default function Home() {
         <Process />
         <Projects />
         <Blog />
-        <Faq />
+        <Faq />A
         <CallToAction />
         <Contact />
       </main>
