@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 
 export default function Footer() {
   const ref = useRef(null);
