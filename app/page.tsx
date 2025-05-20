@@ -1,6 +1,5 @@
 import Hero from "@/components/hero";
 import Features from "@/components/features";
-import Process from "@/components/process";
 import Projects from "@/components/projects";
 import Blog from "@/components/blog";
 import Contact from "@/components/contact";
