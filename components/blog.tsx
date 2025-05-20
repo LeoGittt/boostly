@@ -21,9 +21,9 @@ import {
   Code,
   TrendingUp,
 } from "lucide-react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 type Post = {
   id: number;
@@ -100,73 +100,74 @@ export default function Blog() {
       description:
         "Descubre las tendencias innovadoras que transformarán el panorama del marketing digital el próximo año y cómo prepararte para ellas.",
       date: "15 Abr 2025",
-      readTime: "5 min",
+      readTime: "10 horas",
       category: "marketing",
       image: "/images/prox.png",
       featured: true,
     },
     {
       id: 2,
-      title: "Optimización extrema: Guía completa para acelerar tu sitio web",
-      shortTitle: "Velocidad web",
+      title:
+        "E-commerce exitoso: Guía completa para gestionar tu tienda online",
+      shortTitle: "Gestión de e-commerce",
       description:
-        "Técnicas avanzadas para mejorar radicalmente el rendimiento de tu sitio y ofrecer una experiencia de usuario excepcional.",
+        "Estrategias probadas para optimizar las operaciones de tu tienda online, incrementar conversiones y ofrecer una experiencia de compra excepcional.",
       date: "10 Abr 2025",
-      readTime: "7 min",
+      readTime: "6 horas",
       category: "web",
       image: "/images/prox.png",
       featured: false,
     },
-    {
-      id: 3,
-      title: "Branding en la era digital: Construyendo identidades memorables",
-      shortTitle: "Branding digital",
-      description:
-        "Cómo crear una identidad de marca poderosa que resuene con tu audiencia en un mundo cada vez más digital.",
-      date: "5 Abr 2025",
-      readTime: "4 min",
-      category: "branding",
-      image: "/images/prox.png",
-      featured: true,
-    },
-    {
-      id: 4,
-      title:
-        "React 19: Lo que necesitas saber sobre las nuevas características",
-      shortTitle: "React 19",
-      description:
-        "Un vistazo profundo a las novedades de React 19 y cómo pueden beneficiar a tus proyectos de desarrollo.",
-      date: "3 Abr 2025",
-      readTime: "6 min",
-      category: "web",
-      image: "/images/prox.png",
-      featured: false,
-    },
-    {
-      id: 5,
-      title:
-        "Storytelling de marca: Cautiva a tu audiencia con narrativas poderosas",
-      shortTitle: "Storytelling",
-      description:
-        "Estrategias efectivas para construir conexiones emocionales a través de historias auténticas de marca.",
-      date: "28 Mar 2025",
-      readTime: "5 min",
-      category: "branding",
-      image: "/images/prox.png",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "SEO técnico 2025: Más allá de los fundamentos",
-      shortTitle: "SEO técnico",
-      description:
-        "Tácticas avanzadas de SEO técnico que te darán ventaja en los resultados de búsqueda del próximo año.",
-      date: "22 Mar 2025",
-      readTime: "8 min",
-      category: "marketing",
-      image: "/images/prox.png",
-      featured: true,
-    },
+    // {
+    //   id: 3,
+    //   title: "Branding en la era digital: Construyendo identidades memorables",
+    //   shortTitle: "Branding digital",
+    //   description:
+    //     "Cómo crear una identidad de marca poderosa que resuene con tu audiencia en un mundo cada vez más digital.",
+    //   date: "5 Abr 2025",
+    //   readTime: "4 min",
+    //   category: "branding",
+    //   image: "/images/prox.png",
+    //   featured: true,
+    // },
+    // {
+    //   id: 4,
+    //   title:
+    //     "React 19: Lo que necesitas saber sobre las nuevas características",
+    //   shortTitle: "React 19",
+    //   description:
+    //     "Un vistazo profundo a las novedades de React 19 y cómo pueden beneficiar a tus proyectos de desarrollo.",
+    //   date: "3 Abr 2025",
+    //   readTime: "6 min",
+    //   category: "web",
+    //   image: "/images/prox.png",
+    //   featured: false,
+    // },
+    // {
+    //   id: 5,
+    //   title:
+    //     "Storytelling de marca: Cautiva a tu audiencia con narrativas poderosas",
+    //   shortTitle: "Storytelling",
+    //   description:
+    //     "Estrategias efectivas para construir conexiones emocionales a través de historias auténticas de marca.",
+    //   date: "28 Mar 2025",
+    //   readTime: "5 min",
+    //   category: "branding",
+    //   image: "/images/prox.png",
+    //   featured: false,
+    // },
+    // {
+    //   id: 6,
+    //   title: "SEO técnico 2025: Más allá de los fundamentos",
+    //   shortTitle: "SEO técnico",
+    //   description:
+    //     "Tácticas avanzadas de SEO técnico que te darán ventaja en los resultados de búsqueda del próximo año.",
+    //   date: "22 Mar 2025",
+    //   readTime: "8 min",
+    //   category: "marketing",
+    //   image: "/images/prox.png",
+    //   featured: true,
+    // },
   ];
 
   const filteredPosts = posts.filter(
@@ -364,12 +365,20 @@ export default function Blog() {
                       <Button
                         variant="ghost"
                         className="p-0 h-auto group text-foreground hover:text-primary"
-                        asChild
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Próximamente",
+                            text: "Este artículo estará disponible muy pronto. ¡Gracias por tu interés!",
+                            icon: "info",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "var(--primary)",
+                            background: "var(--background)",
+                            color: "var(--foreground)",
+                          });
+                        }}
                       >
-                        <Link href={`/blog/${post.id}`}>
-                          Leer artículo
-                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </Link>
+                        Leer artículo
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Button>
                     </CardFooter>
                   </Card>
@@ -379,14 +388,7 @@ export default function Blog() {
           </AnimatePresence>
         </motion.div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="group" asChild>
-            <Link href="/blog">
-              Explorar todos los artículos
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </div>
+        <div className="text-center mt-12"></div>
       </div>
     </section>
   );

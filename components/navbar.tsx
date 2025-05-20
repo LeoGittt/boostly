@@ -16,10 +16,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const NAV_LINKS = [
-  { name: "Proceso", href: "/proceso" },
-  { name: "Proyectos", href: "/proyectos" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contacto", href: "/contacto" },
+  { name: "Proceso", href: "#proceso" },
+  { name: "Proyectos", href: "#proyectos" },
+  { name: "Blog", href: "#blog" },
+  { name: "Contacto", href: "/#contacto" }, // Cambio aquí para apuntar al ID
 ];
 
 const SERVICES_LINKS = [
@@ -86,7 +86,7 @@ export default function Navbar() {
           >
             <div className="relative h-9 w-9 md:h-10 md:w-10 overflow-hidden rounded-full transition-transform duration-300 group-hover:scale-110">
               <Image
-                src="/images/logo.png"
+                src="/images/favicon.png"
                 alt="Boostly Logo"
                 fill
                 className="object-cover"
@@ -153,7 +153,7 @@ export default function Navbar() {
             </Button>
 
             <Button size="sm" className="ml-2" asChild>
-              <Link href="/contacto">Empezar proyecto</Link>
+              <Link href="#contacto">Empezar proyecto</Link>
             </Button>
           </nav>
 
@@ -238,7 +238,10 @@ export default function Navbar() {
               ))}
 
               <Button className="w-full mt-4" size="sm" asChild>
-                <Link href="/contacto" onClick={() => setMobileMenuOpen(false)}>
+                <Link
+                  href="/#contacto"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   Empezar proyecto
                 </Link>
               </Button>

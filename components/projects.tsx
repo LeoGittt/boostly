@@ -52,6 +52,7 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
     | null
   >(null);
   const [activeCategory, setActiveCategory] = useState("all");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Sistema de colores centralizado
   const colorVariants = {
@@ -119,8 +120,8 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
       tags: [
         "Next.js",
         "Node.js",
-        "MongoDB",
-        "AWS",
+        "PostgreSQL",
+        "Typescript",
         "Pasarela de pagos",
         "Dashboard",
       ],
@@ -132,8 +133,8 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         "98% de satisfacción del cliente",
       ],
       gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2023",
+      link: "https://www.linkedin.com/in/mateo-lampasona",
+      year: "2025",
     },
     {
       id: 2,
@@ -158,8 +159,8 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         "Manual de marca adoptado por todo el personal",
       ],
       gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2023",
+      link: "https://www.linkedin.com/in/mateo-lampasona",
+      year: "2025",
     },
     {
       id: 3,
@@ -184,28 +185,28 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         "Aumento del 35% en ventas post-rebranding",
       ],
       gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2022",
+      link: "https://www.linkedin.com/in/mateo-lampasona",
+      year: "2025",
     },
-    {
-      id: 4,
-      title: "Sistema de Gestión Integral Municipal",
-      shortTitle: "MUNI",
-      description: "Plataforma completa de gestión para municipalidades",
-      category: "web",
-      image: "/placeholder.svg?height=600&width=800",
-      tags: ["React", "Node.js", "PostgreSQL", "Docker", "API REST", "Gestión"],
-      fullDescription:
-        "Sistema integral para la gestión municipal que incluye módulos de recursos humanos, finanzas, atención ciudadana, gestión de trámites, y más. Diseñado para optimizar los procesos administrativos y mejorar el servicio al ciudadano.",
-      results: [
-        "Implementado en 5 municipalidades",
-        "Reducción del 60% en tiempos de gestión",
-        "95% de satisfacción de usuarios internos",
-      ],
-      gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2023",
-    },
+    // {
+    //   id: 4,
+    //   title: "Sistema de Gestión Integral Municipal",
+    //   shortTitle: "MUNI",
+    //   description: "Plataforma completa de gestión para municipalidades",
+    //   category: "web",
+    //   image: "/placeholder.svg?height=600&width=800",
+    //   tags: ["React", "Node.js", "PostgreSQL", "Docker", "API REST", "Gestión"],
+    //   fullDescription:
+    //     "Sistema integral para la gestión municipal que incluye módulos de recursos humanos, finanzas, atención ciudadana, gestión de trámites, y más. Diseñado para optimizar los procesos administrativos y mejorar el servicio al ciudadano.",
+    //   results: [
+    //     "Implementado en 5 municipalidades",
+    //     "Reducción del 60% en tiempos de gestión",
+    //     "95% de satisfacción de usuarios internos",
+    //   ],
+    //   gallery: ["/placeholder.svg?height=600&width=800"],
+    //   link: "#",
+    //   year: "2025",
+    // },
     {
       id: 5,
       title: "Eventop - Ticketera Virtual",
@@ -222,8 +223,8 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         "Tiempo de procesamiento < 2 segundos",
       ],
       gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2023",
+      link: "https://www.linkedin.com/in/mateo-lampasona",
+      year: "2025",
     },
     {
       id: 6,
@@ -246,8 +247,8 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         "Implementación exitosa en 20 productos",
       ],
       gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2023",
+      link: "https://www.linkedin.com/in/mateo-lampasona",
+      year: "2025",
     },
     {
       id: 7,
@@ -265,8 +266,8 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         "Reducción del 30% en costos administrativos",
       ],
       gallery: ["/placeholder.svg?height=600&width=800"],
-      link: "#",
-      year: "2023",
+      link: "https://www.linkedin.com/in/mateo-lampasona",
+      year: "2025",
     },
   ];
 
@@ -416,7 +417,13 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
                   variants={cardVariants}
                   className="h-full"
                 >
-                  <Card className="h-full overflow-hidden border-border/20 group perspective-1000">
+                  <Card
+                    className="h-full overflow-hidden border-border/20 group perspective-1000 cursor-pointer"
+                    onClick={() => {
+                      setActiveProject(project);
+                      setIsDialogOpen(true);
+                    }}
+                  >
                     {/* Imagen del proyecto */}
                     <div className="aspect-[4/3] bg-secondary/50 relative overflow-hidden">
                       <Image
@@ -428,21 +435,16 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
 
                       {/* Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className={cn(
-                                "border-white/20 text-white hover:bg-white/20 hover:text-white",
-                                "translate-y-2 group-hover:translate-y-0 transition-transform"
-                              )}
-                              onClick={() => setActiveProject(project)}
-                            >
-                              Ver detalles
-                            </Button>
-                          </DialogTrigger>
-                        </Dialog>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={cn(
+                            "border-white/20 text-white hover:bg-white/20 hover:text-white",
+                            "translate-y-2 group-hover:translate-y-0 transition-transform"
+                          )}
+                        >
+                          Ver detalles
+                        </Button>
                       </div>
 
                       {/* Badge de categoría */}
@@ -510,6 +512,9 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
                         variant="ghost"
                         size="sm"
                         className="h-8 w-8 p-0 rounded-full"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevenir que el clic propague y abra el modal
+                        }}
                         asChild
                       >
                         <Link href={project.link}>
@@ -525,138 +530,127 @@ export default function Projects({ showExploreButton = true }: ProjectsProps) {
         </motion.div>
 
         {/* Modal de proyecto */}
-        <Dialog>
-          {activeProject && (
-            <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{activeProject.title}</DialogTitle>
-                <DialogDescription>
-                  {activeProject.description}
-                </DialogDescription>
-              </DialogHeader>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+            {activeProject && (
+              <>
+                <DialogHeader>
+                  <DialogTitle>{activeProject.title}</DialogTitle>
+                  <DialogDescription>
+                    {activeProject.description}
+                  </DialogDescription>
+                </DialogHeader>
 
-              <Carousel className="w-full mt-4">
-                <CarouselContent>
-                  {activeProject.gallery.map((image, idx) => (
-                    <CarouselItem key={idx}>
-                      <div className="aspect-video bg-secondary rounded-md relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                          <svg
-                            width="64"
-                            height="64"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <rect width="24" height="24" fill="none" />
-                            <path
-                              d="M4.5 9.5V5.5C4.5 4.94772 4.94772 4.5 5.5 4.5H9.5M4.5 14.5V18.5C4.5 19.0523 4.94772 19.5 5.5 19.5H9.5M19.5 9.5V5.5C19.5 4.94772 19.0523 4.5 18.5 4.5H14.5M19.5 14.5V18.5C19.5 19.0523 19.0523 19.5 18.5 19.5H14.5"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-4" />
-                <CarouselNext className="right-4" />
-              </Carousel>
-
-              <div className="grid md:grid-cols-2 gap-6 mt-6">
-                <div>
-                  <h3 className="text-lg font-medium mb-3">
-                    Sobre el proyecto
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {activeProject.fullDescription}
-                  </p>
-
-                  <div className="mt-6">
-                    <h3 className="text-lg font-medium mb-3">
-                      Tecnologías y servicios
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {activeProject.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className={cn(
-                            "px-3 py-1.5 text-xs rounded-md",
-                            colorVariants[
-                              activeProject.category as keyof typeof colorVariants
-                            ]?.bg || colorVariants.default.bg,
-                            colorVariants[activeProject.category]?.text ||
-                              colorVariants.default.text
-                          )}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                {/* Imagen principal del proyecto */}
+                <div className="w-full mt-4 rounded-lg overflow-hidden">
+                  <div className="aspect-video bg-secondary relative">
+                    <Image
+                      src={activeProject.image}
+                      alt={activeProject.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
 
-                <div>
-                  <h3 className="text-lg font-medium mb-3">Resultados clave</h3>
-                  <ul className="space-y-3">
-                    {activeProject.results.map((result, i) => (
-                      <li key={i} className="flex items-start">
-                        <div
-                          className={cn(
-                            "flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mr-3 mt-0.5",
-                            colorVariants[activeProject.category]?.bg ||
-                              colorVariants.default.bg,
-                            colorVariants[activeProject.category]?.text ||
-                              colorVariants.default.text
-                          )}
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="text-current"
-                          >
-                            <path
-                              d="M20 6L9 17L4 12"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-sm">{result}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="grid md:grid-cols-2 gap-6 mt-6">
+                  <div>
+                    <h3 className="text-lg font-medium mb-3">
+                      Sobre el proyecto
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {activeProject.fullDescription}
+                    </p>
 
-                  <Button className="mt-6 w-full group" asChild>
-                    <Link href={activeProject.link}>
-                      Ver caso de estudio completo
-                      <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
+                    <div className="mt-6">
+                      <h3 className="text-lg font-medium mb-3">
+                        Tecnologías y servicios
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {activeProject.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className={cn(
+                              "px-3 py-1.5 text-xs rounded-md",
+                              colorVariants[
+                                activeProject.category as keyof typeof colorVariants
+                              ]?.bg || colorVariants.default.bg,
+                              colorVariants[activeProject.category]?.text ||
+                                colorVariants.default.text
+                            )}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-medium mb-3">
+                      Resultados clave
+                    </h3>
+                    <ul className="space-y-3">
+                      {activeProject.results.map((result, i) => (
+                        <li key={i} className="flex items-start">
+                          <div
+                            className={cn(
+                              "flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mr-3 mt-0.5",
+                              colorVariants[activeProject.category]?.bg ||
+                                colorVariants.default.bg,
+                              colorVariants[activeProject.category]?.text ||
+                                colorVariants.default.text
+                            )}
+                          >
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="text-current"
+                            >
+                              <path
+                                d="M20 6L9 17L4 12"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          <span className="text-sm">{result}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button className="mt-6 w-full group" asChild>
+                      <Link
+                        href={activeProject.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ver caso de estudio completo
+                        <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </DialogContent>
-          )}
+              </>
+            )}
+          </DialogContent>
         </Dialog>
 
-        {showExploreButton && (
+        {/* {showExploreButton && (
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" className="group" asChild>
-              <Link href="/proyectos">
+              <Link href="#">
                 Explorar todos los proyectos
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

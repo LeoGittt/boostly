@@ -70,7 +70,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center space-x-2 group">
               <div className="relative h-10 w-10 overflow-hidden rounded-full transition-transform duration-300 group-hover:scale-110">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/favicon.png"
                   alt="Boostly Logo"
                   fill
                   className="object-cover"
@@ -153,7 +153,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/servicios"
+                  href="#servicios"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -162,7 +162,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/proyectos"
+                  href="#proyectos"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -171,7 +171,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/blog"
+                  href="#blog"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -180,7 +180,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/nosotros"
+                  href="#nosotros"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -189,7 +189,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contacto"
+                  href="#contacto"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -239,15 +239,6 @@ export default function Footer() {
                   Consultoría
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/servicios#seo"
-                  className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
-                  SEO & Posicionamiento
-                </Link>
-              </li>
             </ul>
           </motion.div>
 
@@ -274,20 +265,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-4 pt-4">
               <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <span className="sr-only">Facebook</span>
-                <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-                </svg>
-              </Link>
-              <Link
-                href="#"
+                href="https://www.instagram.com/boostlysj/?hl=es"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <span className="sr-only">Instagram</span>
@@ -300,7 +278,7 @@ export default function Footer() {
                 </svg>
               </Link>
               <Link
-                href="#"
+                href="https://www.linkedin.com/company/boostlytm"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <span className="sr-only">LinkedIn</span>

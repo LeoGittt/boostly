@@ -6,6 +6,7 @@ import Blog from "@/components/blog";
 import Contact from "@/components/contact";
 import CallToAction from "@/components/call-to-action";
 import Faq from "@/components/faq";
+import WorkProcess from "./proceso/page";
 
 export default function Home() {
   return (
@@ -13,9 +14,9 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
-        <Process />
+        <WorkProcess />
         <Projects />
-        {/* <Blog /> */}
+        <Blog />
         <Faq />
         <CallToAction />
         <Contact />
