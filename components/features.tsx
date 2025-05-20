@@ -48,6 +48,135 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+// Agregar este objeto antes de la función Features()
+const serviceBenefits = {
+  marketing: [
+    {
+      title: "Mayor visibilidad online",
+      description:
+        "Aumenta tu presencia digital y alcanza a tu audiencia ideal en los canales correctos.",
+    },
+    {
+      title: "Engagement constante",
+      description:
+        "Mantén una comunicación activa y relevante con tu comunidad en redes sociales.",
+    },
+    {
+      title: "Leads cualificados",
+      description:
+        "Atrae prospectos realmente interesados en tu producto o servicio.",
+    },
+    {
+      title: "ROI medible",
+      description:
+        "Obtén métricas claras y resultados tangibles de tus inversiones en marketing.",
+    },
+    {
+      title: "Estrategia personalizada",
+      description:
+        "Plan de marketing adaptado a tus objetivos y recursos específicos.",
+    },
+    {
+      title: "Marca más fuerte",
+      description:
+        "Construye una presencia digital que refuerza el valor de tu marca.",
+    },
+  ],
+  web: [
+    {
+      title: "Presencia 24/7",
+      description:
+        "Tu negocio disponible para clientes potenciales en cualquier momento.",
+    },
+    {
+      title: "Optimización SEO",
+      description:
+        "Mejor posicionamiento en buscadores para atraer tráfico orgánico.",
+    },
+    {
+      title: "Velocidad óptima",
+      description:
+        "Sitios web rápidos que mantienen enganchados a tus visitantes.",
+    },
+    {
+      title: "Diseño responsive",
+      description:
+        "Experiencia perfecta en cualquier dispositivo o tamaño de pantalla.",
+    },
+    {
+      title: "Seguridad garantizada",
+      description:
+        "Protección contra amenazas y respaldo regular de información.",
+    },
+    {
+      title: "Escalabilidad",
+      description: "Crece tu sitio web según las necesidades de tu negocio.",
+    },
+  ],
+  branding: [
+    {
+      title: "Identidad visual sólida",
+      description:
+        "Diseñamos marcas que comunican tu esencia y generan reconocimiento instantáneo.",
+    },
+    {
+      title: "Diferenciación competitiva",
+      description:
+        "Creamos una imagen única que destaca tu negocio en un mercado saturado.",
+    },
+    {
+      title: "Coherencia visual",
+      description:
+        "Desde redes sociales hasta tu sitio web, mantenemos una línea gráfica consistente.",
+    },
+    {
+      title: "Mayor credibilidad",
+      description:
+        "Un buen diseño transmite seriedad y profesionalismo, generando confianza.",
+    },
+    {
+      title: "Comunicación de valores",
+      description:
+        "El diseño estratégico ayuda a contar tu historia y conectar con tu audiencia.",
+    },
+    {
+      title: "Impulso comercial",
+      description:
+        "Una marca bien trabajada influye directamente en la decisión de compra.",
+    },
+  ],
+  software: [
+    {
+      title: "Solución a medida",
+      description:
+        "Software adaptado exactamente a los procesos de tu negocio.",
+    },
+    {
+      title: "Mayor eficiencia",
+      description: "Automatización de procesos que ahorra tiempo y recursos.",
+    },
+    {
+      title: "Integración perfecta",
+      description:
+        "Conexión fluida con tus sistemas y herramientas existentes.",
+    },
+    {
+      title: "Escalabilidad total",
+      description: "Crece y adapta el software según evolucione tu negocio.",
+    },
+    {
+      title: "Soporte continuo",
+      description:
+        "Mantenimiento y actualizaciones para un rendimiento óptimo.",
+    },
+    {
+      title: "Seguridad robusta",
+      description:
+        "Protección de datos y accesos con estándares empresariales.",
+    },
+  ],
+};
+
 export default function Features() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
@@ -128,23 +257,26 @@ export default function Features() {
         {
           name: "Estrategia de Contenido",
           icon: <Mail className="h-4 w-4" />,
-          description: "Planes editoriales y creación de contenido relevante.",
+          description:
+            "Planes editoriales mensuales y creación de contenido relevante.",
         },
         {
           name: "Campañas Publicitarias",
           icon: <Target className="h-4 w-4" />,
           description:
-            "Anuncios optimizados en múltiples plataformas digitales.",
+            "Diseño y ejecución de anuncios en Meta Ads (Instagram y Facebook), orientados a objetivos.",
         },
         {
-          name: "SEO y SEM",
+          name: "Optimización de Perfiles",
           icon: <TrendingUp className="h-4 w-4" />,
-          description: "Optimización para motores de búsqueda y campañas PPC.",
+          description:
+            "Mejoramos tus perfiles en redes para que reflejen profesionalismo, autenticidad y confianza.",
         },
         {
-          name: "Analítica Avanzada",
+          name: "Producción de Contenido",
           icon: <BarChart className="h-4 w-4" />,
-          description: "Informes detallados y recomendaciones estratégicas.",
+          description:
+            "Fotografía y video de alta calidad para destacar tu marca.",
         },
       ],
     },
@@ -157,29 +289,32 @@ export default function Features() {
       icon: <Code className="h-5 w-5" />,
       items: [
         {
-          name: "Diseño Responsive",
+          name: "Sitios Web Modernos",
           icon: <SmartphoneCharging className="h-4 w-4" />,
-          description: "Adaptación perfecta a todos los dispositivos.",
+          description:
+            "Sitios web rápidos y atractivos enfocados en conversión y experiencia.",
         },
         {
-          name: "Optimización",
+          name: "Diseño Responsive",
           icon: <Zap className="h-4 w-4" />,
-          description: "Máxima velocidad y rendimiento.",
+          description: "Diseño adaptable a dispositivos móviles y tablets.",
         },
         {
-          name: "E-commerce",
+          name: "Sistemas a Medida",
           icon: <ShoppingCart className="h-4 w-4" />,
-          description: "Tiendas online con pasarelas de pago.",
+          description: "Desarrollo de plataformas personalizadas.",
         },
         {
-          name: "Fullstack",
+          name: "Full Stack Development",
           icon: <Server className="h-4 w-4" />,
-          description: "Soluciones completas frontend y backend.",
+          description:
+            "Soluciones completas frontend y backend, integrando APIs.",
         },
         {
-          name: "Soporte",
+          name: "Soporte Técnico",
           icon: <Shield className="h-4 w-4" />,
-          description: "Mantenimiento y actualizaciones.",
+          description:
+            "Mantenimiento y soporte continuo, asegurando el rendimiento.",
         },
       ],
     },
@@ -192,9 +327,9 @@ export default function Features() {
       icon: <Paintbrush className="h-5 w-5" />,
       items: [
         {
-          name: "Diseño de Logo",
+          name: "Diseño de Marca",
           icon: <Palette className="h-4 w-4" />,
-          description: "Logotipos únicos y memorables.",
+          description: "Creación de logotipos y manuales de marca.",
         },
         {
           name: "Identidad Visual",
@@ -202,9 +337,9 @@ export default function Features() {
           description: "Sistemas visuales completos.",
         },
         {
-          name: "Material Impreso",
+          name: "Diseño de Flayer",
           icon: <Mail className="h-4 w-4" />,
-          description: "Diseño gráfico para impresión.",
+          description: "Diseños atractivos para promociones y eventos.",
         },
         {
           name: "UX/UI",
@@ -218,76 +353,76 @@ export default function Features() {
         },
       ],
     },
-    {
-      id: "multimedia",
-      title: "Producción Multimedia",
-      shortTitle: "Multimedia",
-      description:
-        "Contenido audiovisual profesional para destacar en todas las plataformas.",
-      icon: <Camera className="h-5 w-5" />,
-      items: [
-        {
-          name: "Fotografía",
-          icon: <Camera className="h-4 w-4" />,
-          description: "Sesiones profesionales de producto y retrato.",
-        },
-        {
-          name: "Video",
-          icon: <Video className="h-4 w-4" />,
-          description: "Producción de contenido audiovisual.",
-        },
-        {
-          name: "Animación",
-          icon: <ScanEye className="h-4 w-4" />,
-          description: "Motion graphics y animaciones 2D/3D.",
-        },
-        {
-          name: "Edición",
-          icon: <Monitor className="h-4 w-4" />,
-          description: "Postproducción profesional.",
-        },
-        {
-          name: "Streaming",
-          icon: <Cloud className="h-4 w-4" />,
-          description: "Producción de eventos en vivo.",
-        },
-      ],
-    },
-    {
-      id: "consultoria",
-      title: "Consultoría IT",
-      shortTitle: "Consultoría",
-      description:
-        "Soluciones tecnológicas para optimizar los procesos de tu negocio.",
-      icon: <LineChart className="h-5 w-5" />,
-      items: [
-        {
-          name: "Transformación Digital",
-          icon: <TrendingUp className="h-4 w-4" />,
-          description: "Modernización con tecnología.",
-        },
-        {
-          name: "Cloud",
-          icon: <Cloud className="h-4 w-4" />,
-          description: "Infraestructura en la nube.",
-        },
-        {
-          name: "Ciberseguridad",
-          icon: <Shield className="h-4 w-4" />,
-          description: "Protección contra amenazas.",
-        },
-        {
-          name: "Automatización",
-          icon: <Zap className="h-4 w-4" />,
-          description: "Optimización de procesos.",
-        },
-        {
-          name: "Business Intelligence",
-          icon: <BarChart className="h-4 w-4" />,
-          description: "Análisis de datos estratégicos.",
-        },
-      ],
-    },
+    // {
+    //   id: "multimedia",
+    //   title: "Producción Multimedia",
+    //   shortTitle: "Multimedia",
+    //   description:
+    //     "Contenido audiovisual profesional para destacar en todas las plataformas.",
+    //   icon: <Camera className="h-5 w-5" />,
+    //   items: [
+    //     {
+    //       name: "Fotografía",
+    //       icon: <Camera className="h-4 w-4" />,
+    //       description: "Sesiones profesionales de producto y retrato.",
+    //     },
+    //     {
+    //       name: "Video",
+    //       icon: <Video className="h-4 w-4" />,
+    //       description: "Producción de contenido audiovisual.",
+    //     },
+    //     {
+    //       name: "Animación",
+    //       icon: <ScanEye className="h-4 w-4" />,
+    //       description: "Motion graphics y animaciones 2D/3D.",
+    //     },
+    //     {
+    //       name: "Edición",
+    //       icon: <Monitor className="h-4 w-4" />,
+    //       description: "Postproducción profesional.",
+    //     },
+    //     {
+    //       name: "Streaming",
+    //       icon: <Cloud className="h-4 w-4" />,
+    //       description: "Producción de eventos en vivo.",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "consultoria",
+    //   title: "Consultoría IT",
+    //   shortTitle: "Consultoría",
+    //   description:
+    //     "Soluciones tecnológicas para optimizar los procesos de tu negocio.",
+    //   icon: <LineChart className="h-5 w-5" />,
+    //   items: [
+    //     {
+    //       name: "Transformación Digital",
+    //       icon: <TrendingUp className="h-4 w-4" />,
+    //       description: "Modernización con tecnología.",
+    //     },
+    //     {
+    //       name: "Cloud",
+    //       icon: <Cloud className="h-4 w-4" />,
+    //       description: "Infraestructura en la nube.",
+    //     },
+    //     {
+    //       name: "Ciberseguridad",
+    //       icon: <Shield className="h-4 w-4" />,
+    //       description: "Protección contra amenazas.",
+    //     },
+    //     {
+    //       name: "Automatización",
+    //       icon: <Zap className="h-4 w-4" />,
+    //       description: "Optimización de procesos.",
+    //     },
+    //     {
+    //       name: "Business Intelligence",
+    //       icon: <BarChart className="h-4 w-4" />,
+    //       description: "Análisis de datos estratégicos.",
+    //     },
+    //   ],
+    // },
     {
       id: "software",
       title: "Software a Medida",
@@ -521,7 +656,7 @@ export default function Features() {
                         asChild
                         variant="outline"
                       >
-                        <Link href={`/servicios/${feature.id}`}>
+                        <Link href={`/servicios#${feature.id}`}>
                           Ver detalles
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Link>
@@ -535,7 +670,9 @@ export default function Features() {
                       className="bg-card border border-border/20 rounded-xl p-4 sm:p-6 shadow-sm backdrop-blur-sm"
                     >
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                        {Array.from({ length: 6 }).map((_, i) => (
+                        {serviceBenefits[
+                          feature.id as keyof typeof serviceBenefits
+                        ].map((benefit, i) => (
                           <motion.div
                             key={i}
                             variants={cardVariants}
@@ -570,13 +707,12 @@ export default function Features() {
                                   />
                                 </div>
                                 <CardTitle className="text-sm sm:text-base">
-                                  Beneficio {i + 1}
+                                  {benefit.title}
                                 </CardTitle>
                               </CardHeader>
                               <CardContent className="pb-3 sm:pb-4">
                                 <CardDescription className="text-xs sm:text-sm">
-                                  Mejora significativa en este aspecto clave del
-                                  servicio.
+                                  {benefit.description}
                                 </CardDescription>
                               </CardContent>
                             </Card>
@@ -686,7 +822,7 @@ export default function Features() {
                       </ul>
 
                       <Button className="group w-full mt-2" asChild size="sm">
-                        <Link href={`/servicios/${feature.id}`}>
+                        <Link href={`/servicios#${feature.id}`}>
                           Ver detalles
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Link>

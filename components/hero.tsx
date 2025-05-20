@@ -56,7 +56,6 @@ export default function Hero() {
     { icon: <Rocket className="h-4 w-4" />, text: "Marketing Digital" },
     { icon: <Zap className="h-4 w-4" />, text: "Desarrollo Web" },
     { icon: <Sparkles className="h-4 w-4" />, text: "Branding & Diseño" },
-    { icon: <BarChart className="h-4 w-4" />, text: "Analítica & SEO" },
   ];
 
   useEffect(() => {

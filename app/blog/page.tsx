@@ -1,57 +1,86 @@
-"use client"
+"use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { useState, useRef } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Clock, Eye, MessageSquare, Rocket, Sparkles, Zap, Search, X, Bookmark, Share2, BookOpen, ChevronDown, Loader2, Heart, BookmarkCheck } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { TypewriterEffect } from "@/components/ui/typewriter-effect"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
+import { useState, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  Clock,
+  Eye,
+  MessageSquare,
+  Rocket,
+  Sparkles,
+  Zap,
+  Search,
+  X,
+  Bookmark,
+  Share2,
+  BookOpen,
+  ChevronDown,
+  Loader2,
+  Heart,
+  BookmarkCheck,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 interface Post {
-  id: number
-  title: string
-  excerpt: string
-  category: string
-  readTime: string
-  views: string
-  comments: number
-  image: string
-  date: string
-  featured?: boolean
-  tags: string[]
+  id: number;
+  title: string;
+  excerpt: string;
+  category: string;
+  readTime: string;
+  views: string;
+  comments: number;
+  image: string;
+  date: string;
+  featured?: boolean;
+  tags: string[];
   author: {
-    name: string
-    avatar: string
-    role: string
-  }
-  content: string
+    name: string;
+    avatar: string;
+    role: string;
+  };
+  content: string;
 }
 
 const BLOG_POSTS: Post[] = [
   {
     id: 1,
     title: "Estrategias de Marketing Digital para 2024",
-    excerpt: "Descubre las tendencias que dominarán el panorama digital este año y cómo aprovecharlas para tu negocio.",
+    excerpt:
+      "Descubre las tendencias que dominarán el panorama digital este año y cómo aprovecharlas para tu negocio.",
     category: "Marketing",
     readTime: "8 min",
     views: "1.2K",
     comments: 24,
-    image: "/images/blog/marketing.jpg",
+    image: "/images/prox.png",
     date: "15 Ene 2024",
     featured: true,
     tags: ["Tendencias", "Redes Sociales", "Growth Hacking"],
     author: {
       name: "María González",
       avatar: "/images/avatars/1.jpg",
-      role: "Especialista en Marketing"
+      role: "Especialista en Marketing",
     },
     content: `
       <h2>Introducción</h2>
@@ -65,70 +94,96 @@ const BLOG_POSTS: Post[] = [
       
       <h2>Conclusión</h2>
       <p>Adaptarse a estas tendencias no es opcional. Las empresas que implementen estrategias de marketing conversacional y contenido en formato vídeo corto verán un ROI significativamente mayor.</p>
-    `
+    `,
   },
   // ... (otros posts con estructura similar)
-]
+];
 
 const CATEGORIES = [
-  { name: "Todos", icon: <Sparkles className="h-4 w-4" />, count: BLOG_POSTS.length },
-  { name: "Marketing", icon: <Rocket className="h-4 w-4" />, count: BLOG_POSTS.filter(post => post.category === "Marketing").length },
-  { name: "Diseño", icon: <Sparkles className="h-4 w-4" />, count: BLOG_POSTS.filter(post => post.category === "Diseño").length },
-  { name: "Desarrollo", icon: <Zap className="h-4 w-4" />, count: BLOG_POSTS.filter(post => post.category === "Desarrollo").length },
-  { name: "Branding", icon: <Bookmark className="h-4 w-4" />, count: BLOG_POSTS.filter(post => post.category === "Branding").length }
-]
+  {
+    name: "Todos",
+    icon: <Sparkles className="h-4 w-4" />,
+    count: BLOG_POSTS.length,
+  },
+  {
+    name: "Marketing",
+    icon: <Rocket className="h-4 w-4" />,
+    count: BLOG_POSTS.filter((post) => post.category === "Marketing").length,
+  },
+  {
+    name: "Diseño",
+    icon: <Sparkles className="h-4 w-4" />,
+    count: BLOG_POSTS.filter((post) => post.category === "Diseño").length,
+  },
+  {
+    name: "Desarrollo",
+    icon: <Zap className="h-4 w-4" />,
+    count: BLOG_POSTS.filter((post) => post.category === "Desarrollo").length,
+  },
+  {
+    name: "Branding",
+    icon: <Bookmark className="h-4 w-4" />,
+    count: BLOG_POSTS.filter((post) => post.category === "Branding").length,
+  },
+];
 
 export default function BlogPage() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [activeCategory, setActiveCategory] = useState("Todos")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [showSearch, setShowSearch] = useState(false)
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-  const [isBookmarked, setIsBookmarked] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
-  })
-  
-  const y = useTransform(scrollYProgress, [0, 1], [0, 100])
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.2])
-  
-  const filteredPosts = (activeCategory === "Todos" 
-    ? BLOG_POSTS 
-    : BLOG_POSTS.filter(post => post.category === activeCategory))
-    .filter(post => 
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.2]);
+
+  const filteredPosts = (
+    activeCategory === "Todos"
+      ? BLOG_POSTS
+      : BLOG_POSTS.filter((post) => post.category === activeCategory)
+  ).filter(
+    (post) =>
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))))
-  
-  const featuredPosts = BLOG_POSTS.filter(post => post.featured)
-  
+      (post.tags &&
+        post.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
+        ))
+  );
+
+  const featuredPosts = BLOG_POSTS.filter((post) => post.featured);
+
   const words = [
     { text: "Explora" },
     { text: "nuestro" },
     { text: "conocimiento", className: "text-primary" },
     { text: "y" },
     { text: "aprende", className: "text-primary" },
-    { text: "🚀" }
-  ]
+    { text: "🚀" },
+  ];
 
   const openModal = (post: Post): void => {
-    setIsLoading(true)
-    setSelectedPost(post)
+    setIsLoading(true);
+    setSelectedPost(post);
     // Simular carga de contenido
     setTimeout(() => {
-      setIsLoading(false)
-    }, 800)
-  }
+      setIsLoading(false);
+    }, 800);
+  };
 
   const closeModal = () => {
-    setSelectedPost(null)
-    setIsBookmarked(false)
-    setIsLiked(false)
-  }
+    setSelectedPost(null);
+    setIsBookmarked(false);
+    setIsLiked(false);
+  };
 
   return (
     <div className="relative overflow-hidden">
@@ -140,13 +195,13 @@ export default function BlogPage() {
             animate={{
               x: [0, Math.random() * 200 - 100],
               y: [0, Math.random() * 200 - 100],
-              opacity: [0.3, 0.8, 0.3]
+              opacity: [0.3, 0.8, 0.3],
             }}
             transition={{
               duration: 10 + Math.random() * 20,
               repeat: Infinity,
               repeatType: "reverse",
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
             className="absolute rounded-full bg-primary/10"
             style={{
@@ -161,42 +216,55 @@ export default function BlogPage() {
 
       {/* Gradient blobs */}
       <div className="fixed inset-0 overflow-hidden -z-20 pointer-events-none">
-        <motion.div 
+        <motion.div
           animate={{ x: [0, 40, 0], y: [0, 60, 0] }}
           transition={{ duration: 40, repeat: Infinity, repeatType: "reverse" }}
           className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full filter blur-[100px] opacity-30"
         />
-        <motion.div 
+        <motion.div
           animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
-          transition={{ duration: 35, repeat: Infinity, repeatType: "reverse", delay: 8 }}
+          transition={{
+            duration: 35,
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 8,
+          }}
           className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full filter blur-[90px] opacity-30"
         />
-        <motion.div 
+        <motion.div
           animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
-          transition={{ duration: 50, repeat: Infinity, repeatType: "reverse", delay: 15 }}
+          transition={{
+            duration: 50,
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 15,
+          }}
           className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-pink-500/10 rounded-full filter blur-[120px] opacity-30"
         />
       </div>
 
       <div className="fixed inset-0 bg-grid opacity-[0.02] -z-30 pointer-events-none" />
 
-      <motion.section 
+      <motion.section
         ref={containerRef}
         style={{ opacity }}
         className="relative pt-32 pb-20 md:pt-40 md:pb-32"
       >
         <div className="container-width">
           {/* Hero Header */}
-          <motion.div 
+          <motion.div
             style={{ y }}
             className="max-w-4xl mx-auto text-center mb-16 px-4"
           >
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Badge variant="outline" className="mb-6 px-4 py-1.5 text-sm border-primary/20 bg-primary/5 text-primary hover:bg-primary/10">
+              <Badge
+                variant="outline"
+                className="mb-6 px-4 py-1.5 text-sm border-primary/20 bg-primary/5 text-primary hover:bg-primary/10"
+              >
                 <Rocket className="h-3.5 w-3.5 mr-1.5" />
                 Artículos recientes • Actualizado diariamente
               </Badge>
@@ -208,9 +276,9 @@ export default function BlogPage() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mb-6"
             >
-              <TypewriterEffect 
-                words={words} 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight" 
+              <TypewriterEffect
+                words={words}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
                 cursorClassName="h-10 bg-primary/80"
               />
             </motion.div>
@@ -221,7 +289,8 @@ export default function BlogPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Descubre artículos especializados en marketing digital, desarrollo web, diseño UX/UI y estrategias de crecimiento para tu negocio.
+              Descubre artículos especializados en marketing digital, desarrollo
+              web, diseño UX/UI y estrategias de crecimiento para tu negocio.
             </motion.p>
 
             <motion.div
@@ -230,14 +299,18 @@ export default function BlogPage() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-wrap justify-center gap-3"
             >
-              <Button asChild variant="default" className="rounded-full px-6 h-11 group shadow-lg shadow-primary/20 hover:shadow-primary/30">
+              <Button
+                asChild
+                variant="default"
+                className="rounded-full px-6 h-11 group shadow-lg shadow-primary/20 hover:shadow-primary/30"
+              >
                 <Link href="#featured">
                   Artículos destacados
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="rounded-full px-6 h-11 group border-border/50 hover:border-primary/30"
                 onClick={() => setShowSearch(!showSearch)}
               >
@@ -273,7 +346,7 @@ export default function BlogPage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                   {searchQuery && (
-                    <button 
+                    <button
                       onClick={() => setSearchQuery("")}
                       className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                     >
@@ -295,21 +368,27 @@ export default function BlogPage() {
             {CATEGORIES.map((category) => (
               <Button
                 key={category.name}
-                variant={activeCategory === category.name ? "default" : "outline"}
+                variant={
+                  activeCategory === category.name ? "default" : "outline"
+                }
                 size="sm"
                 className={cn(
                   "rounded-full px-4 h-9 flex items-center gap-2 transition-all border-border/50",
-                  activeCategory === category.name ? "shadow-lg shadow-primary/10" : ""
+                  activeCategory === category.name
+                    ? "shadow-lg shadow-primary/10"
+                    : ""
                 )}
                 onClick={() => {
-                  setActiveCategory(category.name)
-                  setShowSearch(false)
-                  setSearchQuery("")
+                  setActiveCategory(category.name);
+                  setShowSearch(false);
+                  setSearchQuery("");
                 }}
               >
                 {category.icon}
                 {category.name}
-                <span className="text-xs opacity-80 ml-1">({category.count})</span>
+                <span className="text-xs opacity-80 ml-1">
+                  ({category.count})
+                </span>
               </Button>
             ))}
           </motion.div>
@@ -356,7 +435,11 @@ export default function BlogPage() {
                       </Badge>
                       <div className="absolute bottom-4 left-4 flex gap-2">
                         {post.tags?.slice(0, 2).map((tag) => (
-                          <Badge variant="secondary" key={tag} className="text-xs">
+                          <Badge
+                            variant="secondary"
+                            key={tag}
+                            className="text-xs"
+                          >
                             {tag}
                           </Badge>
                         ))}
@@ -372,7 +455,10 @@ export default function BlogPage() {
                         </span>
                       </div>
                       <h2 className="text-3xl md:text-4xl font-bold mb-4 group-hover:text-primary transition-colors">
-                        <Link href={`/blog/${post.id}`} className="hover:underline underline-offset-4">
+                        <Link
+                          href={`/blog/${post.id}`}
+                          className="hover:underline underline-offset-4"
+                        >
                           {post.title}
                         </Link>
                       </h2>
@@ -394,7 +480,7 @@ export default function BlogPage() {
                         </span>
                       </div>
                       <div className="flex gap-3">
-                        <Button 
+                        <Button
                           onClick={() => openModal(post)}
                           className="group rounded-full px-6 shadow hover:shadow-md"
                         >
@@ -402,10 +488,18 @@ export default function BlogPage() {
                           Leer ahora
                           <ChevronDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-0.5" />
                         </Button>
-                        <Button variant="outline" size="icon" className="rounded-full border-border/50">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full border-border/50"
+                        >
                           <Bookmark className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="icon" className="rounded-full border-border/50">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full border-border/50"
+                        >
                           <Share2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -432,13 +526,14 @@ export default function BlogPage() {
                   </>
                 ) : (
                   <>
-                    {CATEGORIES.find(c => c.name === activeCategory)?.icon}
+                    {CATEGORIES.find((c) => c.name === activeCategory)?.icon}
                     <span className="ml-2">{activeCategory}</span>
                   </>
                 )}
               </h2>
               <span className="text-sm text-muted-foreground">
-                {filteredPosts.length} {filteredPosts.length === 1 ? "artículo" : "artículos"}
+                {filteredPosts.length}{" "}
+                {filteredPosts.length === 1 ? "artículo" : "artículos"}
               </span>
             </div>
 
@@ -451,15 +546,21 @@ export default function BlogPage() {
               >
                 <div className="mx-auto max-w-md">
                   <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-xl font-bold mb-2">No se encontraron artículos</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    No se encontraron artículos
+                  </h3>
                   <p className="text-muted-foreground mb-6">
-                    No hay resultados para "{searchQuery}" en {activeCategory === "Todos" ? "todos los artículos" : activeCategory}.
+                    No hay resultados para "{searchQuery}" en{" "}
+                    {activeCategory === "Todos"
+                      ? "todos los artículos"
+                      : activeCategory}
+                    .
                   </p>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={() => {
-                      setSearchQuery("")
-                      setActiveCategory("Todos")
+                      setSearchQuery("");
+                      setActiveCategory("Todos");
                     }}
                   >
                     Mostrar todos los artículos
@@ -487,15 +588,18 @@ export default function BlogPage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <Badge variant="secondary" className="absolute top-3 left-3">
+                        <Badge
+                          variant="secondary"
+                          className="absolute top-3 left-3"
+                        >
                           {post.category}
                         </Badge>
                         {post.tags && post.tags.length > 0 && (
                           <div className="absolute bottom-3 left-3 flex gap-2">
-                            {post.tags.slice(0, 2).map(tag => (
-                              <Badge 
-                                key={tag} 
-                                variant="outline" 
+                            {post.tags.slice(0, 2).map((tag) => (
+                              <Badge
+                                key={tag}
+                                variant="outline"
                                 className="text-xs bg-background/80 backdrop-blur-sm"
                               >
                                 {tag}
@@ -514,7 +618,10 @@ export default function BlogPage() {
                           </span>
                         </div>
                         <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                          <Link href={`/blog/${post.id}`} className="hover:underline underline-offset-4">
+                          <Link
+                            href={`/blog/${post.id}`}
+                            className="hover:underline underline-offset-4"
+                          >
                             {post.title}
                           </Link>
                         </h3>
@@ -533,24 +640,24 @@ export default function BlogPage() {
                         </div>
                       </div>
                       <div className="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="h-8 w-8 rounded-full hover:bg-primary/10"
                           onClick={() => openModal(post)}
                         >
                           <BookOpen className="h-3.5 w-3.5" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="h-8 w-8 rounded-full hover:bg-primary/10"
                         >
                           <Bookmark className="h-3.5 w-3.5" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="h-8 w-8 rounded-full hover:bg-primary/10"
                         >
                           <Share2 className="h-3.5 w-3.5" />
@@ -573,13 +680,19 @@ export default function BlogPage() {
           >
             <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-[0.02] -z-10" />
             <div className="max-w-2xl mx-auto relative">
-              <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-primary/20 bg-primary/5 text-primary">
+              <Badge
+                variant="outline"
+                className="mb-4 px-4 py-1.5 text-sm border-primary/20 bg-primary/5 text-primary"
+              >
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
                 Newsletter Exclusivo
               </Badge>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">¿Listo para llevar tu negocio al siguiente nivel?</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                ¿Listo para llevar tu negocio al siguiente nivel?
+              </h3>
               <p className="text-muted-foreground mb-8">
-                Suscríbete a nuestro newsletter y recibe los últimos artículos, recursos exclusivos y consejos directamente en tu inbox.
+                Suscríbete a nuestro newsletter y recibe los últimos artículos,
+                recursos exclusivos y consejos directamente en tu inbox.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-3 max-w-md mx-auto">
                 <Input
@@ -593,7 +706,8 @@ export default function BlogPage() {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mt-4">
-                No spam. Solo contenido de valor. Puedes darte de baja en cualquier momento.
+                No spam. Solo contenido de valor. Puedes darte de baja en
+                cualquier momento.
               </p>
             </div>
           </motion.section>
@@ -630,26 +744,36 @@ export default function BlogPage() {
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={selectedPost.author.avatar} />
-                          <AvatarFallback>{selectedPost.author.name.charAt(0)}</AvatarFallback>
+                          <AvatarFallback>
+                            {selectedPost.author.name.charAt(0)}
+                          </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="text-sm font-medium">{selectedPost.author.name}</p>
-                          <p className="text-xs text-muted-foreground">{selectedPost.author.role}</p>
+                          <p className="text-sm font-medium">
+                            {selectedPost.author.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {selectedPost.author.role}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 ml-auto">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           className="rounded-full"
                           onClick={() => setIsLiked(!isLiked)}
                         >
-                          <Heart className={`h-4 w-4 mr-2 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
-                          {isLiked ? 'Me gusta' : 'Dar me gusta'}
+                          <Heart
+                            className={`h-4 w-4 mr-2 ${
+                              isLiked ? "fill-red-500 text-red-500" : ""
+                            }`}
+                          />
+                          {isLiked ? "Me gusta" : "Dar me gusta"}
                         </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           className="rounded-full"
                           onClick={() => setIsBookmarked(!isBookmarked)}
                         >
@@ -658,9 +782,13 @@ export default function BlogPage() {
                           ) : (
                             <Bookmark className="h-4 w-4 mr-2" />
                           )}
-                          {isBookmarked ? 'Guardado' : 'Guardar'}
+                          {isBookmarked ? "Guardado" : "Guardar"}
                         </Button>
-                        <Button variant="ghost" size="sm" className="rounded-full">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="rounded-full"
+                        >
                           <Share2 className="h-4 w-4 mr-2" />
                           Compartir
                         </Button>
@@ -678,7 +806,11 @@ export default function BlogPage() {
                           className="object-cover"
                         />
                       </div>
-                      <div dangerouslySetInnerHTML={{ __html: selectedPost.content }} />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: selectedPost.content,
+                        }}
+                      />
                     </div>
                   </ScrollArea>
                   <div className="p-6 border-t">
@@ -712,5 +844,5 @@ export default function BlogPage() {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

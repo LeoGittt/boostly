@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 
-
 export default function Footer() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
@@ -206,7 +205,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/servicios/marketing-digital"
+                  href="/servicios#marketing-digital"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -215,7 +214,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/servicios/desarrollo-web"
+                  href="/servicios#desarrollo-web"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -224,7 +223,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/servicios/branding"
+                  href="/servicios#branding"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -233,7 +232,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/servicios/consultoria"
+                  href="/servicios#consultoria"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>
@@ -242,7 +241,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/servicios/seo"
+                  href="/servicios#seo"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors flex items-center gap-2 group"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/20 group-hover:bg-primary transition-all"></div>

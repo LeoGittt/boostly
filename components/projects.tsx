@@ -38,11 +38,19 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
-export default function Projects() {
+interface ProjectsProps {
+  showExploreButton?: boolean;
+}
+
+export default function Projects({ showExploreButton = true }: ProjectsProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [activeProject, setActiveProject] = useState<(typeof projects[number] & { category: keyof typeof colorVariants }) | null>(null);
+  const [activeProject, setActiveProject] = useState<
+    | ((typeof projects)[number] & { category: keyof typeof colorVariants })
+    | null
+  >(null);
   const [activeCategory, setActiveCategory] = useState("all");
 
   // Sistema de colores centralizado
@@ -84,7 +92,11 @@ export default function Projects() {
     },
   };
 
-  const categories: { id: keyof typeof colorVariants; label: string; icon: JSX.Element }[] = [
+  const categories: {
+    id: keyof typeof colorVariants;
+    label: string;
+    icon: JSX.Element;
+  }[] = [
     { id: "all", label: "Todos", icon: <Rocket className="h-4 w-4" /> },
     { id: "web", label: "Sitios Web", icon: <Monitor className="h-4 w-4" /> },
     { id: "branding", label: "Branding", icon: <Brush className="h-4 w-4" /> },
@@ -95,153 +107,164 @@ export default function Projects() {
     },
   ];
 
-  const projects: Array<{
-    id: number;
-    title: string;
-    shortTitle: string;
-    description: string;
-    category: "all" | "marketing" | "web" | "branding" | "default"; // Cambiar aquí
-    image: string;
-    tags: string[];
-    fullDescription: string;
-    results: string[];
-    gallery: string[];
-    link: string;
-    year: string;
-  }> = [
+  const projects = [
     {
       id: 1,
-      title: "E-commerce de moda",
-      shortTitle: "Tienda de moda",
+      title: "E-commerce La Marina",
+      shortTitle: "La Marina Shop",
       description:
-        "Tienda online con integración de pasarela de pagos y gestión de inventario.",
-      category: "web", // Asegúrate de que coincida con el tipo esperado
+        "Tienda online personalizada desde cero con sistema de gestión integrado",
+      category: "web",
       image: "/placeholder.svg?height=600&width=800",
-      tags: ["Next.js", "Shopify", "UX/UI", "E-commerce", "Pagos"],
+      tags: [
+        "Next.js",
+        "Node.js",
+        "MongoDB",
+        "AWS",
+        "Pasarela de pagos",
+        "Dashboard",
+      ],
       fullDescription:
-        "Desarrollamos una tienda online completa para una marca de moda emergente...",
-      results: ["Incremento del 70% en ventas online", "Reducción del 40% en abandonos de carrito"],
+        "Desarrollo completo de una plataforma de comercio electrónico personalizada para La Marina, incluyendo gestión de inventario, sistema de pagos, panel de administración y análisis de datos en tiempo real. La solución fue construida desde cero para satisfacer las necesidades específicas del cliente.",
+      results: [
+        "Incremento del 200% en ventas online",
+        "Reducción del 45% en costos operativos",
+        "98% de satisfacción del cliente",
+      ],
       gallery: ["/placeholder.svg?height=600&width=800"],
       link: "#",
       year: "2023",
     },
     {
       id: 2,
-      title: "Identidad corporativa",
-      shortTitle: "Rediseño de marca",
+      title: "Branding Marina Centro",
+      shortTitle: "Marina Centro",
       description:
-        "Rediseño de marca para empresa de tecnología con presencia internacional.",
+        "Diseño de identidad corporativa completa para Marina Centro",
       category: "branding",
-      image: "/placeholder.svg?height=600&width=800",
-      tags: ["Logo", "Papelería", "Guía de estilo", "Branding", "Identidad"],
+      image: "/images/MarinaBranding.png",
+      tags: [
+        "Diseño de Logo",
+        "Identidad Visual",
+        "Papelería",
+        "Señalética",
+        "Guidelines",
+      ],
       fullDescription:
-        "Realizamos un rediseño completo de la identidad corporativa para una empresa de tecnología en expansión internacional. El proyecto incluyó la creación de un nuevo logotipo, sistema de colores, tipografía, papelería corporativa y guía de estilo para asegurar la consistencia de la marca en todos los puntos de contacto.",
+        "Creación completa de la identidad visual para Marina Centro, incluyendo diseño de logotipo, sistema de colores, tipografía, papelería corporativa, señalética y manual de marca. El proyecto buscó reflejar los valores de modernidad y prestigio de la marca.",
       results: [
-        "Reconocimiento de marca mejorado en un 60%",
-        "Coherencia visual en todos los canales",
-        "Feedback positivo de inversores y clientes",
+        "Reconocimiento de marca aumentado en 85%",
+        "Implementación exitosa en 12 puntos de venta",
+        "Manual de marca adoptado por todo el personal",
       ],
-      gallery: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-      ],
-      link: "#",
-      year: "2022",
-    },
-    {
-      id: 3,
-      title: "Campaña digital",
-      shortTitle: "Marketing digital",
-      description:
-        "Estrategia de marketing para lanzamiento de producto con 300% ROI.",
-      category: "marketing",
-      image: "/placeholder.svg?height=600&width=800",
-      tags: ["SEM", "Social Ads", "Email", "Influencers", "ROI"],
-      fullDescription:
-        "Diseñamos e implementamos una estrategia de marketing digital integral para el lanzamiento de un nuevo producto. La campaña incluyó anuncios en Google Ads, campañas en redes sociales, email marketing y colaboraciones con influencers, todo optimizado para maximizar el retorno de inversión.",
-      results: [
-        "300% de retorno sobre la inversión",
-        "Más de 500,000 impresiones",
-        "15,000 nuevos leads generados",
-      ],
-      gallery: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-      ],
+      gallery: ["/placeholder.svg?height=600&width=800"],
       link: "#",
       year: "2023",
     },
     {
-      id: 4,
-      title: "Aplicación móvil",
-      shortTitle: "App de delivery",
+      id: 3,
+      title: "Rebranding Zona Apple Alvear",
+      shortTitle: "Zona Apple",
       description:
-        "App de delivery con más de 10,000 descargas en el primer mes.",
+        "Renovación completa de identidad visual para tienda premium de Apple",
+      category: "branding",
+      image: "/images/ZonaAppleBranding.png",
+      tags: [
+        "Rebranding",
+        "Diseño Gráfico",
+        "Marketing",
+        "Retail",
+        "Experiencia de Usuario",
+      ],
+      fullDescription:
+        "Renovación estratégica de la marca Zona Apple Alvear, adaptando su identidad visual para alinearse con los estándares premium de Apple mientras mantiene su identidad local. Incluyó rediseño de logo, materiales promocionales y experiencia en tienda.",
+      results: [
+        "Incremento del 50% en tráfico de tienda",
+        "90% de aprobación por parte de clientes",
+        "Aumento del 35% en ventas post-rebranding",
+      ],
+      gallery: ["/placeholder.svg?height=600&width=800"],
+      link: "#",
+      year: "2022",
+    },
+    {
+      id: 4,
+      title: "Sistema de Gestión Integral Municipal",
+      shortTitle: "MUNI",
+      description: "Plataforma completa de gestión para municipalidades",
       category: "web",
       image: "/placeholder.svg?height=600&width=800",
-      tags: ["React Native", "UI/UX", "Backend", "Mobile", "Delivery"],
+      tags: ["React", "Node.js", "PostgreSQL", "Docker", "API REST", "Gestión"],
       fullDescription:
-        "Desarrollamos una aplicación móvil para un servicio de delivery local, con funcionalidades de seguimiento en tiempo real, sistema de pagos integrado y programa de fidelización. La interfaz intuitiva y el rendimiento optimizado resultaron en una excelente adopción por parte de los usuarios.",
+        "Sistema integral para la gestión municipal que incluye módulos de recursos humanos, finanzas, atención ciudadana, gestión de trámites, y más. Diseñado para optimizar los procesos administrativos y mejorar el servicio al ciudadano.",
       results: [
-        "10,000+ descargas en el primer mes",
-        "4.8/5 valoración en App Store",
-        "85% de retención de usuarios",
+        "Implementado en 5 municipalidades",
+        "Reducción del 60% en tiempos de gestión",
+        "95% de satisfacción de usuarios internos",
       ],
-      gallery: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-      ],
+      gallery: ["/placeholder.svg?height=600&width=800"],
       link: "#",
       year: "2023",
     },
     {
       id: 5,
-      title: "Portal inmobiliario",
-      shortTitle: "Plataforma inmobiliaria",
-      description:
-        "Plataforma para gestión y búsqueda de propiedades en tiempo real.",
+      title: "Eventop - Ticketera Virtual",
+      shortTitle: "Eventop",
+      description: "Plataforma de venta de entradas para eventos",
       category: "web",
       image: "/placeholder.svg?height=600&width=800",
-      tags: ["Next.js", "APIs", "Mapas", "Inmobiliaria", "Búsqueda"],
+      tags: ["Next.js", "Stripe", "QR", "Real-time", "Mobile App"],
       fullDescription:
-        "Creamos un portal inmobiliario con funcionalidades avanzadas de búsqueda, filtrado y visualización de propiedades en mapas interactivos. La plataforma incluye un panel de administración para agentes inmobiliarios y un sistema de notificaciones para alertar a los usuarios sobre nuevas propiedades que coinciden con sus criterios de búsqueda.",
+        "Desarrollo de una plataforma completa para la venta y gestión de entradas de eventos, incluyendo sistema de QR, validación en tiempo real, panel de organizador y aplicación móvil para control de acceso.",
       results: [
-        "Incremento del 120% en consultas",
-        "Reducción del 40% en tiempo de búsqueda",
-        "Aumento del 65% en conversiones",
+        "Más de 100,000 tickets vendidos",
+        "Integración con 50+ venues",
+        "Tiempo de procesamiento < 2 segundos",
       ],
-      gallery: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-      ],
+      gallery: ["/placeholder.svg?height=600&width=800"],
       link: "#",
-      year: "2022",
+      year: "2023",
     },
     {
       id: 6,
-      title: "Estrategia de redes",
-      shortTitle: "Redes sociales",
-      description:
-        "Gestión de contenido para marca con aumento de 200% en engagement.",
-      category: "marketing",
-      image: "/placeholder.svg?height=600&width=800",
-      tags: ["Instagram", "TikTok", "Contenido", "Social Media", "Engagement"],
+      title: "Rebranding Trivoner",
+      shortTitle: "Trivoner",
+      description: "Renovación de marca para empresa de indumentaria",
+      category: "branding",
+      image: "/images/TrivonerBranding.png",
+      tags: [
+        "Branding",
+        "Diseño Textil",
+        "Marketing Digital",
+        "Redes Sociales",
+      ],
       fullDescription:
-        "Desarrollamos e implementamos una estrategia de contenido para redes sociales que transformó la presencia digital de la marca. Creamos un calendario editorial, directrices de estilo visual y tono de comunicación, y gestionamos la creación y publicación de contenido optimizado para cada plataforma.",
+        "Rebranding completo para Trivoner, incluyendo nuevo logotipo, paleta de colores, tipografía y sistema de diseño para etiquetas y packaging. El proyecto incluyó también estrategia de comunicación en redes sociales.",
       results: [
-        "Aumento del 200% en engagement",
-        "Crecimiento de 150% en seguidores",
-        "15 colaboraciones con influencers",
+        "Aumento del 75% en engagement en redes",
+        "40% incremento en reconocimiento de marca",
+        "Implementación exitosa en 20 productos",
       ],
-      gallery: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
+      gallery: ["/placeholder.svg?height=600&width=800"],
+      link: "#",
+      year: "2023",
+    },
+    {
+      id: 7,
+      title: "CarDev - Gestión de Concesionarias",
+      shortTitle: "CarDev",
+      description: "Sistema integral para concesionarias de automóviles",
+      category: "web",
+      image: "/images/CarDev.png",
+      tags: ["React", "Node.js", "MongoDB", "E-commerce", "CRM", "ERP"],
+      fullDescription:
+        "Desarrollo de una plataforma completa para concesionarias que integra e-commerce, gestión de inventario, CRM, seguimiento de ventas, gestión de empleados y análisis financiero. Incluye aplicación móvil para vendedores y clientes.",
+      results: [
+        "Adoptado por 15 concesionarias",
+        "Aumento del 45% en eficiencia operativa",
+        "Reducción del 30% en costos administrativos",
       ],
+      gallery: ["/placeholder.svg?height=600&width=800"],
       link: "#",
       year: "2023",
     },
@@ -396,24 +419,12 @@ export default function Projects() {
                   <Card className="h-full overflow-hidden border-border/20 group perspective-1000">
                     {/* Imagen del proyecto */}
                     <div className="aspect-[4/3] bg-secondary/50 relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                        <svg
-                          width="48"
-                          height="48"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="none" />
-                          <path
-                            d="M4.5 9.5V5.5C4.5 4.94772 4.94772 4.5 5.5 4.5H9.5M4.5 14.5V18.5C4.5 19.0523 4.94772 19.5 5.5 19.5H9.5M19.5 9.5V5.5C19.5 4.94772 19.0523 4.5 18.5 4.5H14.5M19.5 14.5V18.5C19.5 19.0523 19.0523 19.5 18.5 19.5H14.5"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                      />
 
                       {/* Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
@@ -438,10 +449,12 @@ export default function Projects() {
                       <div
                         className={cn(
                           "absolute top-3 right-3 px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm",
-                          colorVariants[project.category as keyof typeof colorVariants]?.bg ||
-                            colorVariants.default.bg,
-                          colorVariants[project.category as keyof typeof colorVariants]?.text ||
-                            colorVariants.default.text,
+                          colorVariants[
+                            project.category as keyof typeof colorVariants
+                          ]?.bg || colorVariants.default.bg,
+                          colorVariants[
+                            project.category as keyof typeof colorVariants
+                          ]?.text || colorVariants.default.text,
                           "shadow-sm"
                         )}
                       >
@@ -476,10 +489,12 @@ export default function Projects() {
                             key={i}
                             className={cn(
                               "px-2 py-1 text-xs rounded-md",
-                              colorVariants[project.category as keyof typeof colorVariants]?.bg ||
-                                colorVariants.default.bg,
-                              colorVariants[project.category as keyof typeof colorVariants]?.text ||
-                                colorVariants.default.text
+                              colorVariants[
+                                project.category as keyof typeof colorVariants
+                              ]?.bg || colorVariants.default.bg,
+                              colorVariants[
+                                project.category as keyof typeof colorVariants
+                              ]?.text || colorVariants.default.text
                             )}
                           >
                             {tag}
@@ -570,8 +585,9 @@ export default function Projects() {
                           key={i}
                           className={cn(
                             "px-3 py-1.5 text-xs rounded-md",
-                            colorVariants[activeProject.category as keyof typeof colorVariants]?.bg ||
-                              colorVariants.default.bg,
+                            colorVariants[
+                              activeProject.category as keyof typeof colorVariants
+                            ]?.bg || colorVariants.default.bg,
                             colorVariants[activeProject.category]?.text ||
                               colorVariants.default.text
                           )}
@@ -631,14 +647,16 @@ export default function Projects() {
           )}
         </Dialog>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="group" asChild>
-            <Link href="/proyectos">
-              Explorar todos los proyectos
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </div>
+        {showExploreButton && (
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" className="group" asChild>
+              <Link href="/proyectos">
+                Explorar todos los proyectos
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
